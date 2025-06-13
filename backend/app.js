@@ -1,30 +1,32 @@
-const express = require("express")
-const mongoose = require("mongoose")
-const cors = require("cors")
-require("dotenv").config()
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+require("dotenv").config();
 
-const app = express()
-const PORT = process.env.PORT
+const app = express();
+const PORT = process.env.PORT;
 
-app.use(cors({origin: "http://localhost:3000"}))
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+app.use(cors({ origin: "http://localhost:3000" }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const MongoConnect = async() => {
-    try {
-        await mongoose.connect(process.env.MONGODB_URL)
-        console.log("mongoose connected")
-    } catch (err) {
-        console.error("err connecting to mongoodb: ", err)
-        process.exit(1)
-    }
-}
-MongoConnect()
+const MongoConnect = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URL);
+    console.log("mongoose connected");
+  } catch (err) {
+    console.error("err connecting to mongoodb: ", err);
+    process.exit(1);
+  }
+};
+MongoConnect();
 
 const authRoutes = require("./routes/authRoutes");
+const userInfo = require("./routes/dashboardRoute");
+const errMiddleware = require("./middleware/errMDW");
+
 app.use("/api/auth", authRoutes);
+app.use("/api/", userInfo);
 
-
-
-app.use(errMiddleware)
-app.listen(PORT)
+app.use(errMiddleware);
+app.listen(PORT);
