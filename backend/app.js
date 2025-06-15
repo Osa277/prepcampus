@@ -21,12 +21,12 @@ const MongoConnect = async () => {
 };
 MongoConnect();
 
-const authRoutes = require("./routes/authRoutes");
-const userInfo = require("./routes/dashboardRoute");
+const authRoutes = require("./routes/authRoute");
+const userInteraction = require("./routes/dashboardRoute");
 const errMiddleware = require("./middleware/errMDW");
 
 app.use("/api/auth", authRoutes);
-app.use("/api/", userInfo);
+app.use("/api", userInteraction);
 
 app.use(errMiddleware);
 app.listen(PORT);
