@@ -1,7 +1,7 @@
-const errorMessage = (errMessage, status, next) => {
+const errorMessage = (errMessage, status) => {
   const err = new Error(errMessage);
   err.status = status;
-  return next(err);
+  return err; 
 };
 
 module.exports = errorMessage;
