@@ -1,10 +1,10 @@
-function validateFields(fields, reqBody) {
-    for (const field of fields) {
-        if (!reqBody[field]) {
-            return false;
-        }
-    }
-    return true;
+function validateFields(fields, data) {
+  const missing = fields.filter(field => !data[field]);
+  if (missing.length) {
+    const err = new Error(`Missing required field(s): ${missing.join(', ')}`);
+    err.status = 400;
+    throw err;
+  }
 }
 
 module.exports = validateFields;
