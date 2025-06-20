@@ -1,10 +1,13 @@
 const errorMessage = require("../utils/errorMessage");
+const { OpenAI } = require("openai");
+const openai = new OpenAI({ apiKey: 'process.env.OPENAI_API_KEY' });
 const ffmpeg = require("fluent-ffmpeg");
 const ffmpegInstaller = require("@ffmpeg-installer/ffmpeg");
 const { analyzeFrame } = require("./azureFaceService");
 const path = require("path");
 const fs = require("fs");
 const { transcribeAudio } = require("./deepgramService");
+const summarizeFaceAnalysis = require("../helper/summarizeFaceAnalysis");
 ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 
 class VideoProcess {
@@ -82,8 +85,8 @@ class Analysis extends VideoProcess {
         console.error(`Error analyzing frame ${frame}:`, err.message);
       }
     }
-
-    return analysisResults;
+    const summarizedFaceData = await summarizeFaceAnalysis(analysisResults)
+    return summarizedFaceData;
   }
   async audioAnalysis(audioPath) {
     try {
@@ -100,7 +103,48 @@ class Analysis extends VideoProcess {
   }
 }
 
+class Openai extends Analysis {
+  async evaluateInterview({ question, transcript, confidence, videoAnalysis }) {
+    const prompt = `
+You are an expert Developer coach with 10YOE analyzing video interview responses.
+
+Given:
+- Interview question: "${question}"
+- Transcript: "${transcript}"
+- Word confidence: ${JSON.stringify(confidence)}
+- Face analysis (presence, eye contact, confidence): ${JSON.stringify(
+      videoAnalysis
+    )}
+
+Generate a JSON object with:
+{
+  "feedback": "Overall feedback on performance (confidence, presence, eye contact, speech clarity).",
+  "sampleAnswer": "A better version of the answer to the question.",
+  "pointAwarded": "A score(NUMBER) between 0 to 20 based on the user reply"
+}
+Only return the JSON object.`;
+
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4o",
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.7,
+    });
+
+    try {
+      const aiResponse = JSON.parse(completion.choices[0].message.content);
+      return aiResponse;
+    } catch (err) {
+      console.error(
+        "⚠️ OpenAI returned bad JSON:",
+        completion.choices[0].message.content
+      );
+      throw new Error("Invalid JSON format from OpenAI");
+    }
+  }
+}
+
 module.exports = {
   Analysis,
   VideoProcess,
+  Openai,
 };
