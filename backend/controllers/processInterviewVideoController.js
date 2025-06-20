@@ -1,6 +1,8 @@
-const { VideoProcess, Analysis } = require("../services/videoProcessService");
+const { VideoProcess, Analysis, Openai } = require("../services/videoProcessService");
 const vidProcess = new VideoProcess();
 const vidAnalysis = new Analysis();
+const OpenAiInstance = new Openai();
+
 const errorMessage = require("../utils/errorMessage");
 
 const processInterviewVideo = async (req, res, next) => {
@@ -23,12 +25,19 @@ const processInterviewVideo = async (req, res, next) => {
       audioPath
     );
 
+    const vidData = {
+      question: req.body.question,
+      transcript,
+      confidence,
+      videoAnalysis
+    }
+    const OpenAI = await OpenAiInstance.evaluateInterview(vidData)
     // Final response
-    return res.status(200).json({
-      message: "Interview video processed successfully",
-      videoAnalysis,
-      audioAnalysis,
-    });
+    // return res.status(200).json({
+    //   message: "Interview video processed successfully",
+    //   videoAnalysis, 
+    //   audioAnalysis,
+    // });
   } catch (error) {
     console.error("❌ Processing error:", error.message);
     return errorMessage("Failed to process interview video", 500, next);
