@@ -1,6 +1,4 @@
 const errorMessage = require("../utils/errorMessage");
-const { OpenAI } = require("openai");
-const openai = new OpenAI({ apiKey: 'process.env.OPENAI_API_KEY' });
 const ffmpeg = require("fluent-ffmpeg");
 const ffmpegInstaller = require("@ffmpeg-installer/ffmpeg");
 const { analyzeFrame } = require("./azureFaceService");
@@ -8,6 +6,7 @@ const path = require("path");
 const fs = require("fs");
 const { transcribeAudio } = require("./deepgramService");
 const summarizeFaceAnalysis = require("../helper/summarizeFaceAnalysis");
+const openai = require("../config/OpenAiConfig");
 ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 
 class VideoProcess {

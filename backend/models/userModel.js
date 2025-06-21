@@ -70,6 +70,6 @@ userSchema.pre("save", async function (next) {
   }
 });
 
-const userModel = mongoose.model("userModel", userSchema);
+const userModel = mongoose.models.userModel || mongoose.model("userModel", userSchema);
 
 module.exports = userModel;

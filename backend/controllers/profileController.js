@@ -6,7 +6,7 @@ const profileController = async (req, res) => {
     const { jobRole, experienceLevel } = req.body;
 
     if (!jobRole || !experienceLevel) {
-        return errorMessage('Job role and experience level are required', 404, res);
+        return errorMessage('Job role and experience level are required', 404);
     }
 
     try {
@@ -17,7 +17,7 @@ const profileController = async (req, res) => {
         );
 
         if (!updatedUser) {
-            return errorMessage('User not found', 404, res)
+            return errorMessage('User not found', 404)
         }
 
         res.json({

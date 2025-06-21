@@ -9,5 +9,5 @@ const router = express.Router();
 // router.use(authMiddleware);
 router.post('/profile/:id', profileController)
 router.get('/me/:userId', userInfo); 
-router.post("/upload", upload.single("video"), processInterviewVideo )
+router.post("/upload-interview-video", upload.single("video"), processInterviewVideo)
 module.exports = router;
