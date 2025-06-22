@@ -1,8 +1,8 @@
 const errorMessage = require("../utils/errorMessage");
-const userModel = require("../models/userModel");
 const interviewModel = require("../models/interviewModel");
 const feedbackModel = require("../models/feedbackModels");
 const certificateModel = require("../models/certificateModel");
+const userModel = require("../models/UserModel");
 
 const adminDashboard = async (req, res) => {
   try {
