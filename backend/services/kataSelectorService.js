@@ -2,8 +2,11 @@ const axios = require("axios");
 const kataBank = require("../data/kataData.json");
 const levelToKata = require("../utils/kataLevelMapping");
 const errorMessage = require("../utils/errorMessage");
+const validateFields = require("../utils/validateFields");
 
-const getValidKata = async (userLevel, selectedLang) => {
+const getValidKata = async ({ userLevel, selectedLang }) => {
+  validateFields(["userLevel", "selectedLang"], { userLevel, selectedLang });
+
   const kataLevel = levelToKata(userLevel);
   const slugList = [...kataBank[kataLevel]];
   const language = selectedLang.toLowerCase();

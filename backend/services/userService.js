@@ -1,15 +1,16 @@
 const bcrypt = require("bcrypt");
-const userModel = require("../models/UserModel");
 const validateFields = require("../utils/validateFields");
 const errorMessage = require("../utils/errorMessage");
 const generateToken = require("../helper/tokenGeneration");
+const userModel = require("../models/UserModel");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
 class UserService {
-  async userSignup({ username, email, password }) {
-    validateFields(["username", "email", "password"], {
-      username,
+  async userSignup({ firstname, lastname, email, password }) {
+    validateFields(["firstname", "lastname", "email", "password"], {
+      firstname,
+      lastname,
       email,
       password,
     });
