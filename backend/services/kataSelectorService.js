@@ -1,6 +1,6 @@
 const axios = require("axios");
 const kataBank = require("../data/kataData.json");
-const levelToKata = require("../utils/kataLevelMapping");
+const levelToKata = require("../helper/kataLevelMapping");
 const errorMessage = require("../utils/errorMessage");
 const validateFields = require("../utils/validateFields");
 

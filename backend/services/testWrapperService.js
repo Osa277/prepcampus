@@ -33,14 +33,17 @@ Your task is:
    - calls the user's function with one or more sample inputs.
    - logs or returns the output to validate correctness.
 2. Return the expected output for that sample input(s).
+   If the kata does not require any input, set testInput to null.
 
 Kata Description:
 ${description}
 
 Respond ONLY in JSON format like this:
 {
-  "wrapper": "your wrapper code here",
-  "expectedOutput": "expected result here"
+  "functionName": "reverseWords",
+  "wrapper": "full wrapper code...",
+  "testInput": "\"This is an example!\"",
+  "expectedOutput": "\"sihT si na !elpmaxe\""
 }
 `;
 
@@ -78,6 +81,7 @@ Respond ONLY in JSON format like this:
       slug,
       language: language.toLowerCase(),
       wrapper: parsed.wrapper,
+      testInput: parsed.testInput || null,
       expectedOutput: parsed.expectedOutput,
     });
 

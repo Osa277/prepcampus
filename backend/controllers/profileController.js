@@ -2,7 +2,7 @@ const userModel = require("../models/UserModel");
 const errorMessage = require("../utils/errorMessage");
 
 const profileController = async (req, res) => {
-        const userId = req.params.id;
+        const userId = req.params.userId;
     const { jobRole, experienceLevel } = req.body;
 
     if (!jobRole || !experienceLevel) {
