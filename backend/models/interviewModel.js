@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const interviewSchema = new mongoose.Schema({
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'userModel' },
     level: String,
     status: { type: String, default: 'completed' },
     completedAt: Date

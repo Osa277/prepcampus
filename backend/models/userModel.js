@@ -51,15 +51,12 @@ const userSchema = new mongoose.Schema({
     ],
     default: "entry-level",
   },
-  level: {
-    type: Number,
-    default: 1,
-  },
+  levels: { type: mongoose.Schema.Types.ObjectId, ref: "levelModel" },
 
   createdAt: {
-    type: String,
-    default: Date.now()
-  }
+    type: Date,
+    default: Date.now,
+  },
 });
 
 userSchema.pre("save", async function (next) {
@@ -74,6 +71,7 @@ userSchema.pre("save", async function (next) {
   }
 });
 
-const userModel = mongoose.models.userModel || mongoose.model("userModel", userSchema);
+const userModel =
+  mongoose.models.userModel || mongoose.model("userModel", userSchema);
 
 module.exports = userModel;

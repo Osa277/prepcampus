@@ -1,6 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const TestWrapperSchema = new mongoose.Schema({
+  functionName: {
+    type: String,
+    required: true,
+  },
   slug: {
     type: String,
     required: true,
@@ -14,6 +18,9 @@ const TestWrapperSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  testInput: {
+    type: String,
+  },
   expectedOutput: {
     type: String,
     required: true,
@@ -21,9 +28,9 @@ const TestWrapperSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-  }
+  },
 });
 
 TestWrapperSchema.index({ slug: 1, language: 1 }, { unique: true });
-const TestWrapper = mongoose.model('TestWrapper', TestWrapperSchema);
-module.exports = TestWrapper
+const TestWrapper = mongoose.model("TestWrapper", TestWrapperSchema);
+module.exports = TestWrapper;
