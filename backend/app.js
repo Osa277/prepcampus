@@ -17,7 +17,7 @@ const adminRoute = require('./routes/adminRoute')
 
 app.use("/api/auth", authRoutes);
 app.use("/api", userInteraction);
-app.use('/api/admin', adminRoute);
+app.use('/api', adminRoute);
 
 app.listen(PORT);
 app.use(errMiddleware);
