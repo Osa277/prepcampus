@@ -19,5 +19,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api", userInteraction);
 app.use('/api', adminRoute);
 
-app.listen(PORT);
 app.use(errMiddleware);
+app.listen(PORT);
+
