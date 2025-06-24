@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const { model } = require("mongoose");
 const generateToken = async (user) => {
   const payload = {
     userId: user._id,
