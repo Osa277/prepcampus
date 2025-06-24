@@ -27,7 +27,7 @@ const adminDashboard = async (req, res) => {
 
     const userList = await userModel.find().sort({ createdAt: -1 });
 
-    res.json({
+    res.status(200).json({
       metrics: {
         activeUsers,
         totalInterviews,
