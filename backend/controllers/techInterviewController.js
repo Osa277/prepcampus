@@ -7,7 +7,7 @@ const techInteviewQuestionController = async (req, res, next) => {
   try {
     const { selectedLang } = req.body;
 
-    const questionData = await getValidKata(req.body);
+    const questionData = await getValidKata(req.body, req.user);
     if (!questionData) {
       return res.status(404).json({
         message: "No valid kata found for the selected language.",
@@ -75,4 +75,4 @@ const techInteviewSubmitController = async (req, res, next) => {
   }
 };
 
-module.exports = techInteviewQuestionController;
+module.exports = {techInteviewQuestionController, techInteviewSubmitController};

@@ -10,11 +10,11 @@ const authMiddleware = async (req, res, next) => {
     const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
     if (!verifyToken)
       return errorMessage("token is Expired or tampered", 401, next);
+    req.user = verifyToken;
     next();
   } catch (err) {
     next(err);
   }
 };
 
-
-module.exports = authMiddleware
+module.exports = authMiddleware;
