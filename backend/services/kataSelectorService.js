@@ -1,13 +1,19 @@
 const axios = require("axios");
 const kataBank = require("../data/kataData.json");
-const levelToKata = require("../helper/kataLevelMapping");
 const errorMessage = require("../utils/errorMessage");
 const validateFields = require("../utils/validateFields");
+const {
+  getUsedSlugs,
+  saveUsedSlug,
+  savePrevLevel,
+  clearAllUserSlugs,
+} = require("../helper/slugTracker");
+const getKataLevel = require("../helper/kataLevelMapping");
 
-const getValidKata = async ({ userLevel, selectedLang }) => {
+const getValidKata = async ({ userLevel, selectedLang }, { userId }) => {
   validateFields(["userLevel", "selectedLang"], { userLevel, selectedLang });
 
-  const kataLevel = levelToKata(userLevel);
+  const kataLevel = getKataLevel(userLevel);
   const slugList = [...kataBank[kataLevel]];
   const language = selectedLang.toLowerCase();
   const CODEWAR_API = process.env.CODEWAR_API_URL;
@@ -15,9 +21,21 @@ const getValidKata = async ({ userLevel, selectedLang }) => {
   let attempts = 0;
   const MAX_ATTEMPTS = 10;
 
-  while (slugList.length > 0 && attempts < MAX_ATTEMPTS) {
-    const randIndex = Math.floor(Math.random() * slugList.length);
-    const slug = slugList.splice(randIndex, 1)[0];
+  const usedSlugs = await getUsedSlugs(userId, userLevel);
+  const availableSlug = slugList.filter((s) => !usedSlugs.has(s));
+
+  if (availableSlug.length === 0)
+    throw errorMessage("no available slug for selected language", 400);
+
+
+  const clearPrevLevelSlug = await savePrevLevel(userId, Number(kataLevel));
+  if (clearPrevLevelSlug) {
+    await clearAllUserSlugs(userId);
+  }
+
+  while (availableSlug.length > 0 && attempts < MAX_ATTEMPTS) {
+    const randIndex = Math.floor(Math.random() * availableSlug.length);
+    const slug = availableSlug.splice(randIndex, 1)[0];
     attempts++;
 
     try {
@@ -27,6 +45,7 @@ const getValidKata = async ({ userLevel, selectedLang }) => {
       );
 
       if (supportedLanguages.includes(language)) {
+        await saveUsedSlug(userId, userLevel, slug);
         return {
           name: res.data.name,
           slug: res.data.slug,
