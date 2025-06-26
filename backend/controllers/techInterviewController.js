@@ -26,7 +26,12 @@ const techInteviewQuestionController = async (req, res, next) => {
     }
 
     const { wrapper, expectedOutput, testInput = null } = testWrapper;
-    return res.status(200).json({ slug, wrapper, expectedOutput, testInput });
+    return new SuccessResponse(
+      res,
+      200,
+      "Technical interview question fetched successfully",
+      { slug, wrapper, expectedOutput, testInput }
+    ).send();
   } catch (err) {
     next(err);
   }
@@ -62,17 +67,20 @@ const techInteviewSubmitController = async (req, res, next) => {
     const final_result = await parseJudge0Result(result);
 
     if (final_result.success) {
-      return res
-        .status(200)
-        .json({ message: "Correct!", output: final_result.output });
+      return new SuccessResponse(res, 200, "Correct!", {
+        output: final_result.output,
+      }).send();
     } else {
-      return res
-        .status(400)
-        .json({ message: final_result.message, details: final_result });
+      return new ErrorResponse(res, 400, final_result.message, {
+        details: final_result,
+      }).send();
     }
   } catch (err) {
     next(err);
   }
 };
 
-module.exports = {techInteviewQuestionController, techInteviewSubmitController};
+module.exports = {
+  techInteviewQuestionController,
+  techInteviewSubmitController,
+};

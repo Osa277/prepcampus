@@ -9,10 +9,15 @@ const levelUpdate = async (req, res, next) => {
       userId,
       stageToUpdate
     );
-    return res.status(200).json(levelUpdateResult);
+    return new SuccessResponse(
+      res,
+      200,
+      "Level updated successfully",
+      levelUpdateResult
+    ).send();
   } catch (err) {
-      next(err)
+    next(err);
   }
 };
 
-module.exports = levelUpdate
+module.exports = levelUpdate;
