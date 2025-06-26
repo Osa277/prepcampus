@@ -4,7 +4,6 @@ const errorMessage = require("../utils/errorMessage");
 const generateToken = require("../helper/tokenGeneration");
 const userModel = require("../models/UserModel");
 
-const JWT_SECRET = process.env.JWT_SECRET;
 
 class UserService {
   async userSignup({ firstname, lastname, email, password }) {
@@ -45,7 +44,7 @@ class UserService {
     const foundUserById = await userModel.findById(userId);
     if (!foundUserById) throw errorMessage("Invalid user Id", 400);
     const userData = {
-      username: foundUserById.username,
+      fullname: `${foundUserById.firstname} ${foundUserById.lastname}`,
       email: foundUserById.email,
       level: foundUserById.level,
     };

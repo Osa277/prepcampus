@@ -13,7 +13,7 @@ const router = express.Router();
 
 // router.use(authMiddleware);
 router.post("/profile/:userId", profileController);
-router.get("/me/:userId", userInfo);
+router.get("/currentUser/:userId", userInfo);
 router.post(
   "/upload-interview-video",
   upload.single("video"),
