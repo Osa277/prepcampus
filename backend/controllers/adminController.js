@@ -3,6 +3,7 @@ const interviewModel = require("../models/interviewModel");
 const feedbackModel = require("../models/feedbackModels");
 const certificateModel = require("../models/certificateModel");
 const userModel = require("../models/UserModel");
+const { SuccessResponse } = require("../utils/baseResponse");
 
 const adminDashboard = async (req, res) => {
   try {
@@ -11,7 +12,11 @@ const adminDashboard = async (req, res) => {
     const feedbackCount = await feedbackModel.countDocuments();
     const certificateCount = await certificateModel.countDocuments();
 
-    const recentUsers = await userModel.find().sort({ createdAt: -1 }).limit(5);
+    const recentUsers = await userModel
+      .find()
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .select("-password");
 
     const recentInterviews = await interviewModel
       .find()
@@ -25,9 +30,12 @@ const adminDashboard = async (req, res) => {
       .limit(5)
       .populate("userId", "name email");
 
-    const userList = await userModel.find().sort({ createdAt: -1 });
+    const userList = await userModel
+      .find()
+      .sort({ createdAt: -1 })
+      .select("-password");
 
-    res.status(200).json({
+    const analytics = {
       metrics: {
         activeUsers,
         totalInterviews,
@@ -40,9 +48,11 @@ const adminDashboard = async (req, res) => {
         recentCertificates: recentBadges,
       },
       userList,
-    });
+    };
+
+    return new SuccessResponse(res, undefined, undefined, analytics).send();
   } catch (err) {
-    return errorMessage("Error loading admin dashboard", 500);
+    next(err)
   }
 };
 

@@ -3,7 +3,7 @@ const validateFields = require("../utils/validateFields");
 const errorMessage = require("../utils/errorMessage");
 const generateToken = require("../helper/tokenGeneration");
 const userModel = require("../models/UserModel");
-
+const levelModel = require("../models/userLevelModel");
 
 class UserService {
   async userSignup({ firstname, lastname, email, password }) {
@@ -17,11 +17,13 @@ class UserService {
     const foundUser = await userModel.findOne({ email });
     if (foundUser) throw errorMessage("User already exists", 409);
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const levelDoc = await levelModel.create({});
     const newUser = new userModel({
-      username,
+      firstname,
+      lastname,
       email,
       password,
+      levels: levelDoc._id,
     });
     await newUser.save();
     const token = await generateToken(newUser);

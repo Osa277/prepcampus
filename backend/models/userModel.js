@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    index: true,
   },
   password: {
     type: String,
@@ -33,7 +34,7 @@ const userSchema = new mongoose.Schema({
       "ui-ux-designer",
       "product-manager",
     ],
-    default: "programmer",
+    default: "frontend-developer",
   },
   experienceLevel: {
     type: String,
@@ -52,7 +53,10 @@ const userSchema = new mongoose.Schema({
     default: "entry-level",
   },
   levels: { type: mongoose.Schema.Types.ObjectId, ref: "levelModel" },
-
+  status: {
+    type: String,
+    default: "active",
+  },
   createdAt: {
     type: Date,
     default: Date.now,
