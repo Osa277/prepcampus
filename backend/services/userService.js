@@ -26,8 +26,23 @@ class UserService {
       levels: levelDoc._id,
     });
     await newUser.save();
+    
     const token = await generateToken(newUser);
-    return token;
+    
+    // Return both token and user data
+    const userData = {
+      _id: newUser._id,
+      firstName: newUser.firstname,
+      lastName: newUser.lastname,
+      email: newUser.email,
+      level: newUser.level || 1,
+      stage: newUser.stage || 1,
+      isAdmin: newUser.isAdmin || false,
+      createdAt: newUser.createdAt,
+      updatedAt: newUser.updatedAt
+    };
+    
+    return { token, user: userData };
   }
 
   async userLogin({ email, password }) {
@@ -38,8 +53,23 @@ class UserService {
 
     const passwordMatch = await bcrypt.compare(password, foundUser.password);
     if (!passwordMatch) throw errorMessage("Invalid credentials", 401);
+    
     const token = await generateToken(foundUser);
-    return token;
+    
+    // Return both token and user data
+    const userData = {
+      _id: foundUser._id,
+      firstName: foundUser.firstname,
+      lastName: foundUser.lastname,
+      email: foundUser.email,
+      level: foundUser.level || 1,
+      stage: foundUser.stage || 1,
+      isAdmin: foundUser.isAdmin || false,
+      createdAt: foundUser.createdAt,
+      updatedAt: foundUser.updatedAt
+    };
+    
+    return { token, user: userData };
   }
 
   async userInfo({ userId }) {

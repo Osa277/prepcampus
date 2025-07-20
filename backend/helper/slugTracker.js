@@ -1,14 +1,31 @@
 const redisClient = require("../config/RedisConfig");
 
 async function saveUsedSlug(userId, level, slug) {
-  const key = `usedSlugs:${userId}:level-${level}`;
-  await redisClient.sAdd(key, slug);
+  if (!redisClient) {
+    console.warn("Redis not available, slug tracking disabled");
+    return;
+  }
+  try {
+    const key = `usedSlugs:${userId}:level-${level}`;
+    await redisClient.sAdd(key, slug);
+  } catch (err) {
+    console.warn("Failed to save used slug:", err.message);
+  }
 }
 
 async function getUsedSlugs(userId, level) {
-  const key = `usedSlugs:${userId}:level-${level}`;
-  const slugs = await redisClient.sMembers(key);
-  return new Set(slugs);
+  if (!redisClient) {
+    console.warn("Redis not available, returning empty slug set");
+    return new Set();
+  }
+  try {
+    const key = `usedSlugs:${userId}:level-${level}`;
+    const slugs = await redisClient.sMembers(key);
+    return new Set(slugs);
+  } catch (err) {
+    console.warn("Failed to get used slugs:", err.message);
+    return new Set();
+  }
 }
 
 /**

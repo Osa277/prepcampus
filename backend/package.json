@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "install-deps": "npm install"
   },
   "keywords": [],
   "author": "",
@@ -25,5 +27,8 @@
     "openai": "^5.5.1",
     "redis": "^5.5.6",
     "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
   }
 }

@@ -3,7 +3,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 const userInfo = require("../controllers/userController");
 const upload = require("../helper/fileUploadHelper");
 const processInterviewVideo = require("../controllers/processInterviewVideoController");
-const profileController = require("../controllers/profileController");
+const { getProfileController, updateProfileController } = require("../controllers/profileController");
 const {
   techInteviewQuestionController,
   techInteviewSubmitController,
@@ -12,7 +12,7 @@ const levelUpdate = require("../controllers/levelUpdate");
 const router = express.Router();
 
 // router.use(authMiddleware);
-router.post("/profile/:userId", profileController);
+router.post("/profile/:userId", updateProfileController);
 router.get("/currentUser/:userId", userInfo);
 router.post(
   "/upload-interview-video",

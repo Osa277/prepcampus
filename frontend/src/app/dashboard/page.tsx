@@ -1,7 +1,38 @@
-import React from "react";
+'use client';
+
+import React, { useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function Dashboard() {
+  const { user, isAuthenticated, isLoading, logout } = useAuth();
+  const router = useRouter();
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      router.push('/login');
+    }
+  }, [isAuthenticated, isLoading, router]);
+
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return null; // Will redirect in useEffect
+  }
+
   return (
     <main className="min-h-screen flex">
       {/* Sidebar */}
@@ -51,19 +82,20 @@ export default function Dashboard() {
           <a className="flex items-center gap-2 py-2 px-4 rounded hover:bg-blue-500">
             <span>⚙️</span> Settings
           </a>
-          <a className="flex items-center gap-2 py-2 px-4 rounded hover:bg-blue-500">
+          <button 
+            onClick={handleLogout}
+            className="flex items-center gap-2 py-2 px-4 rounded hover:bg-blue-500"
+          >
             <span>🚪</span> Log out
-          </a>
+          </button>
         </div>
         <div className="mt-auto flex items-center space-x-2 pt-6 border-t border-blue-400">
-          <img
-            src="/image 7.png"
-            alt="Alex Johnson"
-            className="w-10 h-10 rounded-full object-cover"
-          />
+          <div className="w-10 h-10 rounded-full bg-blue-200 flex items-center justify-center text-blue-600 font-semibold">
+            {user?.firstName?.[0]?.toUpperCase() || 'U'}
+          </div>
           <div>
-            <div className="font-semibold">Alex Johnson</div>
-            <div className="text-xs">Web Developer</div>
+            <div className="font-semibold">{user ? `${user.firstName} ${user.lastName}` : 'User'}</div>
+            <div className="text-xs">Student</div>
           </div>
         </div>
       </aside>
@@ -81,7 +113,9 @@ export default function Dashboard() {
         </div>
         {/* Main Content Grid */}
         <div className="px-10 py-10">
-          <h1 className="text-2xl font-bold mb-2">Welcome to PrepInterview, Alex!</h1>
+          <h1 className="text-2xl font-bold mb-2">
+            Welcome to PrepInterview, {user?.firstName || 'User'}!
+          </h1>
           <p className="mb-8 text-gray-700">
             We're thrilled to have you on board! Let's get you started on the path to acing your next interview.
           </p>
@@ -108,7 +142,7 @@ export default function Dashboard() {
               <div className="bg-white rounded-lg shadow p-6">
                 <h2 className="font-semibold mb-2">Your Interview Success Journey Starts Here!</h2>
                 <p className="mb-4 text-gray-600">
-                  Hi Alex, Welcome to the PrepInterview family! Your journey to mastering technical interviews begins here.<br />
+                  Hi {user?.firstName || 'User'}, Welcome to the PrepInterview family! Your journey to mastering technical interviews begins here.<br />
                   We're committed to helping you succeed every step of the way.
                 </p>
                 <div className="flex items-center mb-2">
