@@ -71,6 +71,7 @@ class ApiClient {
     options: RequestOptions = {}
   ): Promise<T> {
     const url = `${this.baseURL}${endpoint}`;
+    console.log('Making API request to:', url);
     
     const defaultHeaders: Record<string, string> = {
       'Content-Type': 'application/json',
@@ -88,19 +89,33 @@ class ApiClient {
         ...defaultHeaders,
         ...options.headers,
       },
+      mode: 'cors', // Explicitly set CORS mode
     };
 
     try {
+      console.log('Fetch config:', config);
       const response = await fetch(url, config);
+      console.log('Response received:', response.status, response.statusText);
       
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
+        console.error('API Error Response:', errorData);
         throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
 
-      return await response.json();
+      const data = await response.json();
+      console.log('API Response data:', data);
+      return data;
     } catch (error) {
       console.error('API request failed:', error);
+      console.error('Request URL:', url);
+      console.error('Request config:', config);
+      
+      // Check if it's a network error
+      if (error instanceof TypeError && error.message === 'Failed to fetch') {
+        throw new Error('Network error: Unable to connect to the server. Please check if the backend server is running on http://localhost:5000');
+      }
+      
       throw error;
     }
   }

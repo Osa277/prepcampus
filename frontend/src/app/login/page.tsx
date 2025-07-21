@@ -58,15 +58,9 @@ export default function LoginPage() {
     
     try {
       console.log('Attempting login...');
-      const result = await login(formData);
-      console.log('Login result:', result);
-      
-      if (result.success) {
-        console.log('Login successful, setting success state');
-        setLoginSuccess(true);
-      } else {
-        console.log('Login failed:', result.message);
-      }
+      await login(formData.email, formData.password);
+      console.log('Login successful, setting success state');
+      setLoginSuccess(true);
     } catch (err) {
       console.error('Login error:', err);
     } finally {
@@ -232,15 +226,15 @@ export default function LoginPage() {
             <div className="mt-6 p-4 bg-blue-50 rounded-md border border-blue-200">
               <h3 className="text-sm font-medium text-blue-800 mb-2">Demo Credentials:</h3>
               <div className="text-xs text-blue-700 space-y-1">
-                <p>Email: demo@prepcampus.com</p>
-                <p>Password: Demo123!</p>
+                <p>Email: test@example.com</p>
+                <p>Password: Test123!</p>
               </div>
               <button
                 type="button"
                 onClick={() => {
                   setFormData({
-                    email: 'demo@prepcampus.com',
-                    password: 'Demo123!'
+                    email: 'test@example.com',
+                    password: 'Test123!'
                   });
                 }}
                 className="mt-2 text-xs bg-blue-100 hover:bg-blue-200 text-blue-800 px-2 py-1 rounded"

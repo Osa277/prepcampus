@@ -6,7 +6,11 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors({ origin: ["http://localhost:3000", "http://localhost:3001"] }));
+app.use(cors({ 
+  origin: ["http://localhost:3000", "http://localhost:3001", "http://localhost:3002", "http://localhost:3003", "http://localhost:3004"],
+  credentials: true,
+  optionsSuccessStatus: 200
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
