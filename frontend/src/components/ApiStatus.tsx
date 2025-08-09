@@ -10,8 +10,13 @@ export default function ApiStatus() {
   useEffect(() => {
     const checkApiStatus = async () => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
-        const response = await fetch(`${apiUrl.replace('/api', '')}/api/health`);
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 
+          (typeof window !== 'undefined' 
+            ? (window.location.hostname === 'localhost' 
+                ? 'http://localhost:5000/api' 
+                : `${window.location.origin}/api`)
+            : '/api');
+        const response = await fetch(`${apiUrl}/health`);
         if (response.ok) {
           const data = await response.json();
           setApiStatus(data);

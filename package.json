@@ -13,8 +13,10 @@
     "start:frontend": "cd frontend && npm start",
     "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
     "build:frontend": "cd frontend && npm run build",
+    "build": "npm run build:frontend",
     "setup": "npm run install:all",
-    "postinstall": "npm run install:all"
+    "postinstall": "npm run install:all",
+    "vercel-build": "cd frontend && npm install && npm run build"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

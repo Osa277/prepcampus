@@ -7,7 +7,15 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({ 
-  origin: ["http://localhost:3000", "http://localhost:3001", "http://localhost:3002", "http://localhost:3003", "http://localhost:3004"],
+  origin: [
+    "http://localhost:3000", 
+    "http://localhost:3001", 
+    "http://localhost:3002", 
+    "http://localhost:3003", 
+    "http://localhost:3004",
+    "https://prepcampus.vercel.app",
+    "https://*.vercel.app"
+  ],
   credentials: true,
   optionsSuccessStatus: 200
 }));
@@ -42,6 +50,16 @@ app.use(undefinedRoute);
 
 app.use(errMiddleware);
 
-app.listen(PORT, "0.0.0.0", async () => {
-  await MongoConnect(), console.log(`server is live at ${PORT} on all interfaces`);
-});
+// Export app for Vercel serverless functions
+module.exports = app;
+
+// Only start server if not in Vercel environment
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, "0.0.0.0", async () => {
+    await MongoConnect();
+    console.log(`server is live at ${PORT} on all interfaces`);
+  });
+} else {
+  // Connect to MongoDB for serverless
+  MongoConnect();
+}
