@@ -19,7 +19,7 @@ export default function AuthButtons() {
   if (isAuthenticated && user) {
     return (
       <div className="flex items-center space-x-4">
-        <span className="text-gray-700">Welcome, {user.firstname}!</span>
+        <span className="text-gray-700">Welcome, {user.firstName}!</span>
         <Link href="/dashboard">
           <button className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition">
             Dashboard
