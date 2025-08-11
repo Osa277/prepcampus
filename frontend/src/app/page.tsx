@@ -13,39 +13,39 @@ export default function Home() {
       <section className="min-h-screen flex flex-col md:flex-row bg-white">
         {/* Left Side */}
         <div className="flex-1 flex flex-col justify-center px-8 md:px-24 py-20">
-          <span className="inline-block bg-blue-50 text-blue-600 px-4 py-1 rounded-full text-sm font-semibold tracking-wide mb-8">
+          <span className="inline-block bg-blue-50 text-blue-600 px-6 py-2 rounded-full text-sm font-semibold tracking-wide mb-8 shadow-sm">
             Smart Prep with AI.
           </span>
-          <h1 className="mb-4">
-            <span className="block text-4xl md:text-5xl font-bold text-blue-600 leading-tight mb-2">
+          <h1 className="mb-6">
+            <span className="block text-5xl md:text-6xl font-black text-blue-600 leading-tight mb-4 drop-shadow-sm">
               From Prep to Offer
             </span>
-            <span className="block text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+            <span className="block text-4xl md:text-5xl font-bold text-gray-900 leading-tight drop-shadow-sm">
               Ace Your Interviews<br />with AI-Powered Prep
             </span>
           </h1>
-          <ul className="mb-10 mt-8 space-y-3">
-            <li className="flex items-center text-lg text-gray-700">
-              <span className="w-7 h-7 flex items-center justify-center bg-blue-50 rounded-full mr-3">
-                <svg width="18" height="18" fill="none"><circle cx="9" cy="9" r="9" fill="#2563eb"/><path d="M6 9l2 2 4-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          <ul className="mb-12 mt-8 space-y-4">
+            <li className="flex items-center text-xl text-gray-800 font-medium">
+              <span className="w-8 h-8 flex items-center justify-center bg-blue-100 rounded-full mr-4 shadow-md">
+                <svg width="20" height="20" fill="none"><circle cx="10" cy="10" r="10" fill="#2563eb"/><path d="M7 10l2 2 4-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </span>
               Interactive Video Interviews
             </li>
-            <li className="flex items-center text-lg text-gray-700">
-              <span className="w-7 h-7 flex items-center justify-center bg-blue-50 rounded-full mr-3">
-                <svg width="18" height="18" fill="none"><circle cx="9" cy="9" r="9" fill="#2563eb"/><path d="M6 9l2 2 4-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            <li className="flex items-center text-xl text-gray-800 font-medium">
+              <span className="w-8 h-8 flex items-center justify-center bg-blue-100 rounded-full mr-4 shadow-md">
+                <svg width="20" height="20" fill="none"><circle cx="10" cy="10" r="10" fill="#2563eb"/><path d="M7 10l2 2 4-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </span>
               AI Feedback
             </li>
-            <li className="flex items-center text-lg text-gray-700">
-              <span className="w-7 h-7 flex items-center justify-center bg-blue-50 rounded-full mr-3">
-                <svg width="18" height="18" fill="none"><circle cx="9" cy="9" r="9" fill="#2563eb"/><path d="M6 9l2 2 4-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            <li className="flex items-center text-xl text-gray-800 font-medium">
+              <span className="w-8 h-8 flex items-center justify-center bg-blue-100 rounded-full mr-4 shadow-md">
+                <svg width="20" height="20" fill="none"><circle cx="10" cy="10" r="10" fill="#2563eb"/><path d="M7 10l2 2 4-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </span>
               Gamified Progress
             </li>
-            <li className="flex items-center text-lg text-gray-700">
-              <span className="w-7 h-7 flex items-center justify-center bg-blue-50 rounded-full mr-3">
-                <svg width="18" height="18" fill="none"><circle cx="9" cy="9" r="9" fill="#2563eb"/><path d="M6 9l2 2 4-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            <li className="flex items-center text-xl text-gray-800 font-medium">
+              <span className="w-8 h-8 flex items-center justify-center bg-blue-100 rounded-full mr-4 shadow-md">
+                <svg width="20" height="20" fill="none"><circle cx="10" cy="10" r="10" fill="#2563eb"/><path d="M7 10l2 2 4-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </span>
               Expert Mock Interviews
             </li>
@@ -392,7 +392,7 @@ export default function Home() {
                 <li>• System Design Masterclass</li>
                 <li>• Salary Negotiation Tips</li>
               </ul>
-              <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+              <button className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 cursor-pointer font-semibold text-lg">
                 Access Guides
               </button>
             </div>
@@ -412,7 +412,7 @@ export default function Home() {
                 <li>• Communication Best Practices</li>
                 <li>• Expert Interview Tips</li>
               </ul>
-              <button className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+              <button className="w-full bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 active:bg-green-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 cursor-pointer font-semibold text-lg">
                 Watch Videos
               </button>
             </div>
@@ -432,7 +432,7 @@ export default function Home() {
                 <li>• System Design Cases</li>
                 <li>• Detailed Solutions</li>
               </ul>
-              <button className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors">
+              <button className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg hover:bg-purple-700 active:bg-purple-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 cursor-pointer font-semibold text-lg">
                 Start Practicing
               </button>
             </div>
@@ -452,7 +452,7 @@ export default function Home() {
                 <li>• STAR Method Template</li>
                 <li>• Follow-up Email Templates</li>
               </ul>
-              <button className="w-full bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700 transition-colors">
+              <button className="w-full bg-orange-600 text-white py-4 px-6 rounded-lg hover:bg-orange-700 active:bg-orange-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 cursor-pointer font-semibold text-lg touch-manipulation">
                 Download Templates
               </button>
             </div>
@@ -472,7 +472,7 @@ export default function Home() {
                 <li>• Salary & Benefits Data</li>
                 <li>• Employee Reviews</li>
               </ul>
-              <button className="w-full bg-teal-600 text-white py-2 px-4 rounded-lg hover:bg-teal-700 transition-colors">
+              <button className="w-full bg-teal-600 text-white py-3 px-6 rounded-lg hover:bg-teal-700 active:bg-teal-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 cursor-pointer font-semibold text-lg">
                 Explore Companies
               </button>
             </div>
@@ -492,7 +492,7 @@ export default function Home() {
                 <li>• Q&A Sessions</li>
                 <li>• Success Stories</li>
               </ul>
-              <button className="w-full bg-pink-600 text-white py-2 px-4 rounded-lg hover:bg-pink-700 transition-colors">
+              <button className="w-full bg-pink-600 text-white py-3 px-6 rounded-lg hover:bg-pink-700 active:bg-pink-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 cursor-pointer font-semibold text-lg">
                 Join Community
               </button>
             </div>
@@ -520,7 +520,7 @@ export default function Home() {
                   <span className="text-4xl font-bold text-gray-900">$29</span>
                   <span className="text-gray-600">/month</span>
                 </div>
-                <button className="w-full bg-gray-900 text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors">
+                <button className="w-full bg-gray-900 text-white py-4 px-6 rounded-lg hover:bg-gray-800 active:bg-gray-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 cursor-pointer font-semibold text-lg touch-manipulation">
                   Get Started
                 </button>
               </div>
@@ -572,7 +572,7 @@ export default function Home() {
                   <span className="text-4xl font-bold">$79</span>
                   <span className="text-blue-200">/month</span>
                 </div>
-                <button className="w-full bg-white text-blue-600 py-3 px-6 rounded-lg hover:bg-gray-100 transition-colors font-semibold">
+                <button className="w-full bg-white text-blue-600 py-4 px-6 rounded-lg hover:bg-gray-100 active:bg-gray-200 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 cursor-pointer font-semibold text-lg touch-manipulation">
                   Get Started
                 </button>
               </div>
@@ -625,7 +625,7 @@ export default function Home() {
                   <span className="text-4xl font-bold text-gray-900">$199</span>
                   <span className="text-gray-600">/month</span>
                 </div>
-                <button className="w-full bg-gray-900 text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors">
+                <button className="w-full bg-gray-900 text-white py-4 px-6 rounded-lg hover:bg-gray-800 active:bg-gray-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 cursor-pointer font-semibold text-lg touch-manipulation">
                   Get Started
                 </button>
               </div>
