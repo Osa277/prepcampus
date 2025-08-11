@@ -2,7 +2,6 @@
 
 import React from "react";
 import Header from "../components/Header";
-import ApiStatus from "../components/ApiStatus";
 import AuthButtons from "../components/AuthButtons";
 import Link from "next/link";
 
@@ -10,10 +9,6 @@ export default function Home() {
   return (
     <main>
       <Header />
-      {/* API Status Section */}
-      <section className="px-8 md:px-24 pt-6">
-        <ApiStatus />
-      </section>
       {/* Hero Section */}
       <section className="min-h-screen flex flex-col md:flex-row bg-white">
         {/* Left Side */}
